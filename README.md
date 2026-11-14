@@ -7,6 +7,6 @@ stratejileri üzerine öğrenme günlüğüm.
 | # | Konu | Not Defteri |
 |---|------|-------------|
 | 01 | Hareketli ortalamalar ve fiyatın ortalamaya uzaklığı | [01_hareketli_ortalamalar.ipynb](01_hareketli_ortalamalar.ipynb) |
-
+| 02 | Haber (FinBERT) ve StockTwits duyarlılık analizi | [02_haber_duyarlilik.ipynb](02_haber_duyarlilik.ipynb) |
 ## Uyarı
 Bu repodaki tüm analizler **öğrenme amaçlıdır** ve **yatırım tavsiyesi değildir**.
