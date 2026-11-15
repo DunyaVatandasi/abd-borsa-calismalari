@@ -12,6 +12,7 @@ stratejileri üzerine öğrenme günlüğüm.
 | 05 | Tek tıkla yapay zekâ ajan analizi (TradingAgents) | [05_tradingagents.ipynb](05_tradingagents.ipynb) |
 | 06 | Opsiyon karar hunisi: hisse, yön, vade/strike, yapı | [06_opsiyon_hunisi.ipynb](06_opsiyon_hunisi.ipynb) |
 | 07 | Gün içi stratejiler: ORB ve alternatifleri (Bölüm 1: 15 dk ORB) | [07_gun_ici_orb.ipynb](07_gun_ici_orb.ipynb) |
+| 07b | ORB Bölüm 2: 5 dk mı 15 dk mı, hangi teyit (VWAP, ES/NQ, göreli hacim)? | [07b_orb_teyitler.ipynb](07b_orb_teyitler.ipynb) |
 
 ## Uyarı
 Bu repodaki tüm analizler **öğrenme amaçlıdır** ve **yatırım tavsiyesi değildir**.

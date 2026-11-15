@@ -24,6 +24,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 | 05 | TradingAgents ile tek tıkla ajan analizi | Claude API, anahtar Colab Gizli Anahtarlar'da (`ANTHROPIC_API_KEY`) |
 | 06 | Opsiyon karar hunisi | API anahtarı ve maliyet yok |
 | 07 | Gün içi stratejiler: ORB ve alternatifleri | Ayrı parkur. Bölüm 1: 15 dk ORB, yfinance 5 dk veri (son ~60 gün) |
+| 07b | ORB Bölüm 2: 5 dk mı 15 dk mı, hangi teyit? | Sabit evren, hisse bazında sonuç, filtreler permütasyon + q testiyle |
 
 ## Karar kartı ve X gönderisi biçimi (05)
 - Kart hisse kodu ve **GG/AA/YYYY** tarihle başlar; "Hisse / Tarih" etiketi kullanılmaz.
@@ -61,6 +62,12 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - Sonuçlar **R** cinsinden, **maliyet sonrası** ve **rastgele yönlü kıyasla** birlikte değerlendirilir. Kâr iki parçaya ayrılır: yapı katkısı (rastgele yönün ortalaması) ve yön katkısı (strateji − rastgele).
 - 5 dk veri kullanıldığında sonuç iki mum içi varsayımla (kötümser / iyimser) **aralık** olarak okunur; aralık işaret değiştiriyorsa karar verilmez.
 - Varsayılan maliyet: hisse başına 0,0035 $ komisyon (her yön), 1 bps kayma (likit ETF). Tek hisselerde kayma 2–5 bps.
+- **Evren (15/11/2026):** SPY, QQQ, IWM ve Mag7 (AAPL, MSFT, NVDA, AMZN, GOOGL, META, TSLA). Liste **genişletilmez**: küçük ve manipülasyona açık hisseler yanıltıcı sonuç verir. Sonuçlar hisse hisse raporlanır; ETF'ler ve Mag7 ayrı gruptur. Tekil hisselerde kayma 3 bps.
+- **Bölüm 1 ilk sonuç (24/08–13/11/2026):** makale ayarı (ATR %10 stop) 5 dk veride belirsiz; 5 dk aralık 15 dk'dan iyi; göreli hacmi en yüksek üçte birlik dilim +0,73 R. Hipotezdir, kural değil.
+- **Bölüm 2 (07b):** 5 dk ve 15 dk yan yana. Teyitler tek tek test edilir: göreli hacim, VIX, vadeli gece aralığı, gece getirisi, ES–NQ uyumu; Mag7 bilanço günleri ayrıca gösterilir.
+- **Vadeliler** sinyal değil gün bağlamıdır: SPY → ES, QQQ ve Mag7 → NQ, IWM → RTY. ES–NQ uyumsuzluğu (SMT) kamuya açık kanıtı olmadığı için test edilmeden kullanılmaz.
+- **VWAP giriş filtresi olarak kullanılmaz** (15 dk sonunda aralığın içindedir, kırılım zaten VWAP'ın ötesindedir); yalnızca iz süren çıkış olarak test edilir.
+- **Filtre kabulü:** gün bazında permütasyon testi, Benjamini–Hochberg q < 0,10, fark iki mum içi varsayımda ve örneklemin iki yarısında pozitif, en az 20 işlem. Bunu sağlayan filtre **aday**dır; daha uzun veride doğrulanmadan kural olmaz.
 - Yol haritası: Stocks in Play (göreli hacim) → Noise Area (SPY) → VWAP trend → daha uzun 1 dk veri kaynağı.
 
 ## Açık işler ve fikirler
@@ -70,7 +77,8 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - [ ] Kendi StockTwits ve teknik araçlarımızı TradingAgents'a bağlamak
 - [ ] Makro veri için ücretsiz FRED anahtarı
 - [ ] Zamanlanmış günlük çalıştırma
-- [ ] 07'yi gerçek veriyle çalıştırıp ilk sonuçları birlikte okumak
+- [x] 07'yi gerçek veriyle çalıştırıp ilk sonuçları birlikte okumak (15/11/2026)
+- [ ] 07b'nin aday filtrelerini daha uzun, 1 dakikalık veride doğrulamak (veri kaynağı araştırması)
 - [ ] Opsiyon stratejilerinin geriye dönük testi (geçmiş opsiyon verisi gerektirir)
 - [ ] Opsiyon rehberini okuyup notları Claude ile değerlendirmek (konu, yeniden açılana kadar beklemede)
 - [ ] NVDA bilanço testi: 16/11 seans içinde bilanço vadesi beklenen hareketini not et, 19/11 sabahı gerçekleşenle karşılaştır (hatırlatmalar kurulu)
