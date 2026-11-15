@@ -58,6 +58,9 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - [ ] Makro veri için ücretsiz FRED anahtarı
 - [ ] Zamanlanmış günlük çalıştırma
 - [ ] Opsiyon stratejilerinin geriye dönük testi (geçmiş opsiyon verisi gerektirir)
+- [ ] Opsiyon rehberini okuyup notları Claude ile değerlendirmek (konu, yeniden açılana kadar beklemede)
+- [ ] NVDA bilanço testi: 16/11 seans içinde bilanço vadesi beklenen hareketini not et, 19/11 sabahı gerçekleşenle karşılaştır (hatırlatmalar kurulu)
 
 ## İlgili belgeler
+- Opsiyon öğrenme rehberi (orta-ileri seviye, örnek hesaplar ve grafiklerle): https://claude.ai/artifact/QeLwWDqvH1eZWSJVGqqnpT
 - Repo araştırma raporu (MIT, Apache-2.0 ve BSD lisanslı repolar): https://claude.ai/artifact/NaMrKi1hWgs54BuUDkofs7
