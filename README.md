@@ -11,6 +11,7 @@ stratejileri üzerine öğrenme günlüğüm.
 | 03 | Temel analiz ve rakiplerle karşılaştırma | [03_temel_analiz.ipynb](03_temel_analiz.ipynb) |
 | 05 | Tek tıkla yapay zekâ ajan analizi (TradingAgents) | [05_tradingagents.ipynb](05_tradingagents.ipynb) |
 | 06 | Opsiyon karar hunisi: hisse, yön, vade/strike, yapı | [06_opsiyon_hunisi.ipynb](06_opsiyon_hunisi.ipynb) |
+| 07 | Gün içi stratejiler: ORB ve alternatifleri (Bölüm 1: 15 dk ORB) | [07_gun_ici_orb.ipynb](07_gun_ici_orb.ipynb) |
 
 ## Uyarı
 Bu repodaki tüm analizler **öğrenme amaçlıdır** ve **yatırım tavsiyesi değildir**.

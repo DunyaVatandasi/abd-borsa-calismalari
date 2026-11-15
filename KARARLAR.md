@@ -23,6 +23,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 | 03 | Temel analiz ve rakip karşılaştırması | yfinance verisi |
 | 05 | TradingAgents ile tek tıkla ajan analizi | Claude API, anahtar Colab Gizli Anahtarlar'da (`ANTHROPIC_API_KEY`) |
 | 06 | Opsiyon karar hunisi | API anahtarı ve maliyet yok |
+| 07 | Gün içi stratejiler: ORB ve alternatifleri | Ayrı parkur. Bölüm 1: 15 dk ORB, yfinance 5 dk veri (son ~60 gün) |
 
 ## Karar kartı ve X gönderisi biçimi (05)
 - Kart hisse kodu ve **GG/AA/YYYY** tarihle başlar; "Hisse / Tarih" etiketi kullanılmaz.
@@ -54,6 +55,14 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - En sağlıklı sonuç ABD seansı içinde, TSİ 17:30–24:00 arasında alınır. Hafta sonu son işlem fiyatları kullanılır.
 - **Bilanço:** Seçilen vade bilançoyu kapsıyorsa bu durum kartta belirtilir. Bilançodan sonraki ilk vadenin beklenen hareketi, 7 gün kuralından bağımsız olarak bilgi amaçlı gösterilir. Strateji tablosundaki IV_düşüşü sütunu, bilanço sonrası IV düşüşünün (IV crush) her yapıya etkisini gösterir: lehine, aleyhine ya da nötre yakın.
 
+## Gün içi stratejiler (07)
+- **Ayrı parkur:** 01–06'dan bağımsızdır; opsiyon kuralları (21–45 gün vade vb.) burada geçerli değildir, yalnızca dayanak varlıkla (ETF / hisse) çalışılır. Pozisyonlar aynı gün kapanır.
+- Başlangıç stratejisi **15 dk ORB** (Zarattini, Barbon ve Aziz 2024 kuralları: aralık yönü, aralık ucuna stop emri, 14 günlük ATR'nin %10'u stop, gün sonunda çıkış).
+- Sonuçlar **R** cinsinden, **maliyet sonrası** ve **rastgele yönlü kıyasla** birlikte değerlendirilir. Kâr iki parçaya ayrılır: yapı katkısı (rastgele yönün ortalaması) ve yön katkısı (strateji − rastgele).
+- 5 dk veri kullanıldığında sonuç iki mum içi varsayımla (kötümser / iyimser) **aralık** olarak okunur; aralık işaret değiştiriyorsa karar verilmez.
+- Varsayılan maliyet: hisse başına 0,0035 $ komisyon (her yön), 1 bps kayma (likit ETF). Tek hisselerde kayma 2–5 bps.
+- Yol haritası: Stocks in Play (göreli hacim) → Noise Area (SPY) → VWAP trend → daha uzun 1 dk veri kaynağı.
+
 ## Açık işler ve fikirler
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
 - [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
@@ -61,6 +70,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - [ ] Kendi StockTwits ve teknik araçlarımızı TradingAgents'a bağlamak
 - [ ] Makro veri için ücretsiz FRED anahtarı
 - [ ] Zamanlanmış günlük çalıştırma
+- [ ] 07'yi gerçek veriyle çalıştırıp ilk sonuçları birlikte okumak
 - [ ] Opsiyon stratejilerinin geriye dönük testi (geçmiş opsiyon verisi gerektirir)
 - [ ] Opsiyon rehberini okuyup notları Claude ile değerlendirmek (konu, yeniden açılana kadar beklemede)
 - [ ] NVDA bilanço testi: 16/11 seans içinde bilanço vadesi beklenen hareketini not et, 19/11 sabahı gerçekleşenle karşılaştır (hatırlatmalar kurulu)
