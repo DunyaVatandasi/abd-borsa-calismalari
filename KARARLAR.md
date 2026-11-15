@@ -48,6 +48,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - **Belirli bir yapıya bağlılık yok:** debit, kredi, tek bacak ya da çok bacaklı; analiz neyi gösteriyorsa ona bakılır.
 - Hisse adayları ApeWisdom (Reddit) ve StockTwits trend listelerinden gelir.
 - En sağlıklı sonuç ABD seansı içinde, TSİ 17:30–24:00 arasında alınır. Hafta sonu son işlem fiyatları kullanılır.
+- **Bilanço:** Seçilen vade bilançoyu kapsıyorsa bu durum kartta belirtilir. Bilançodan sonraki ilk vadenin beklenen hareketi, 7 gün kuralından bağımsız olarak bilgi amaçlı gösterilir. Strateji tablosundaki IV_düşüşü sütunu, bilanço sonrası IV düşüşünün (IV crush) her yapıya etkisini gösterir: lehine, aleyhine ya da nötre yakın.
 
 ## Açık işler ve fikirler
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
