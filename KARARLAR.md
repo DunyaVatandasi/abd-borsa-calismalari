@@ -70,7 +70,29 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - **Filtre kabulü:** gün bazında permütasyon testi, Benjamini–Hochberg q < 0,10, fark iki mum içi varsayımda ve örneklemin iki yarısında pozitif, en az 20 işlem. Bunu sağlayan filtre **aday**dır; daha uzun veride doğrulanmadan kural olmaz.
 - Yol haritası: Stocks in Play (göreli hacim) → Noise Area (SPY) → VWAP trend → daha uzun 1 dk veri kaynağı.
 
+## Önceden kayıtlı test: Vadeli yön uyumu (07c)
+**Kayıt tarihi: 15/11/2026 — test verisi indirilmeden önce.** Bu bölüm test yapıldıktan sonra değiştirilmez; sonuçlar altına eklenir.
+
+- **Keşif dönemi:** 24/08–13/11/2026 (07b, yfinance 5 dk). **Test dönemi:** 01/01/2016–21/08/2026, keşif dönemi hariç, **1 dk veri**. Bu dönem filtreler için hiç görülmemiş veridir.
+- **Veri:** ETF ve hisseler için Alpaca (ücretsiz plan, tüm borsalar, 1 dk). Vadeliler için Databento CME Globex (GLBX.MDP3), 1 dk OHLCV, sürekli kontrat (ES, NQ, RTY). Notebook indirmeden önce maliyeti hesaplar; tahmini maliyet **10 $'ı aşarsa durur**. API anahtarları yalnızca Colab "Gizli anahtarlar" bölümünde tutulur; sohbete ya da repoya yazılmaz.
+- **Evren ve eşleştirme:** 07 ile aynı (SPY → ES, QQQ ve Mag7 → NQ, IWM → RTY). Sembol değişiklikleri (ör. FB → META, 2022) veri adımında kontrol edilir.
+- **ORB kuralları (sabit):** aralık yönü (makale), aralık ucuna anlık stop emri, stop aralığın karşı ucu, gün sonunda çıkış, son giriş 15:30 ET. Simülasyon 1 dk mumlarla; mum içi belirsizlikte kötümser varsayım esastır, iyimser de raporlanır. Maliyet: hisse başına 0,0035 $ komisyon; kayma ETF'lerde 1 bps, hisselerde 3 bps (her yön).
+- **Vadeli yön uyumu skoru (0–4):** her işlem için aşağıdakilerden kaçının işlem yönünde olduğu sayılır. Gece aralığı = önceki normal seans günü 18:00 ET ile 09:30 ET arası.
+  1. Eşleşen vadelinin önceki seans kapanışından 09:30'a getirisi işlem yönünde.
+  2. Vadelinin 09:30 fiyatı gece aralığının işlem yönündeki yarısında.
+  3. ES ve NQ'nun aynı süreli açılış aralığı mumunun (kapanış − açılış) ikisi de işlem yönünde.
+  4. Girişten **önce tamamlanmış** 1 dk mumlarda eşleşen vadeli gece yükseğini (uzun) / düşüğünü (kısa) aşmış.
+  Vadeli verisi eksik günler testten çıkarılır.
+- **Kural:** skor ≥ 3 ise işlem al, değilse alma.
+- **Testler:** iki test (5 dk ve 15 dk aralık). Her biri için **doğrulandı** sayılmanın üç şartı:
+  1. Tüm evrende "skor ≥ 3" işlemlerinin ortalama net R'ı (kötümser) − "skor ≤ 2" işlemlerinin ortalaması > 0; gün bazında permütasyon (en az 5.000 tekrar), tek yönlü **p < 0,025** (%5'in iki teste bölünmesi).
+  2. Fark 2016–2020 ve 2021–2026 alt dönemlerinin **ikisinde de** pozitif.
+  3. Fark iyimser mum içi varsayımda da pozitif.
+  Biri bile sağlanmazsa sonuç **doğrulanmadı** olarak kaydedilir.
+- **Raporlanır ama karar vermez:** skor 0–4 boyunca sonuç eğrisi, ETF / Mag7 ve sembol kırılımı, "skor ≥ 3" işlemlerinin mutlak net R'ı ve rastgele yönle kıyası, yıllara göre sonuç.
+
 ## Açık işler ve fikirler
+- [ ] 07c: Alpaca ve Databento hesapları, Colab gizli anahtarları (Gökhan) → önceden kayıtlı testi çalıştırmak
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
 - [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
 - [ ] Haftalık X içeriği için hisse karşılaştırma tablosu
