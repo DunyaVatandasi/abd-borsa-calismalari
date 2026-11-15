@@ -38,11 +38,15 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - Ajan raporlarında sorulacak soru: argüman gerçek bir bulguya mı, yoksa veri eksikliğine mi dayanıyor?
 
 ## Opsiyon kuralları (06)
-- Vade: **7–45 gün**. Otomatik seçim, 30 güne en yakın ve bilançoyu kapsamayan vadedir.
+- Vade: **21–45 gün** (15/11/2026'da alt sınır 7'den 21'e çıkarıldı: son haftaların gamma riski). Açık pozisyonlar vadeye **7 gün** kala kapatılır. Otomatik seçim, 30 güne en yakın ve bilançoyu kapsamayan vadedir.
 - Kısa bacak: **0,20–0,30 delta**.
 - Spread genişliği: **hisse fiyatının en fazla %4'ü**.
-- Likidite: en az 100 açık pozisyon ve orta fiyatın en fazla %10'u kadar alış-satış makası.
+- Likidite: kontratta **en az 500 açık pozisyon**, ya da kendisi ve iki yanındaki ikişer strike'ın hepsinde en az 100; alış-satış makası orta fiyatın en fazla %10'u.
 - Pahalı/ucuz kararı: **IV rank** (MarketChameleon'dan elle girilir) **50 ve üstü pahalı, 25 ve altı ucuz**. IV rank girilmezse IV/HV20 oranı kullanılır: 1,25 ve üstü pahalı, 0,9 ve altı ucuz.
+- **Boyut çarpanı:** opsiyonlar ucuzsa normal boyutun 0,5'i, normalse 1, pahalıysa 0,6'sı ve tanımlı riskli yapı.
+- **Kâr alma:** kredi yapılarında primin %50'si gelince kapat; satış dolar dolmaz GTC geri alım emri gir. Strateji tablosunda `kâr_al_geri_alım` sütunu bu fiyatı gösterir.
+- **VIX filtresi:** VIX 35'in üstünde ya da 12'nin altındaysa yeni kısa prim pozisyonu açılmaz; notebook uyarı verir ve karta yazar.
+- Vade alt sınırı, likidite, boyut çarpanı, kâr alma ve VIX kuralları 15/11/2026'da Dr. Arda Züber notlarından alındı.
 - MarketChameleon'daki "IV30 % Rank" bir yüzdeliktir; klasik IV Rank'e karşılık gelen ölçü "52-Week Position"dır.
 - Yön sinyalleri: söz (StockTwits), para (put/call oranı, çarpıklık), fiyat (SMA20 ve SMA50).
 - **Belirli bir yapıya bağlılık yok:** debit, kredi, tek bacak ya da çok bacaklı; analiz neyi gösteriyorsa ona bakılır.
@@ -62,5 +66,6 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - [ ] NVDA bilanço testi: 16/11 seans içinde bilanço vadesi beklenen hareketini not et, 19/11 sabahı gerçekleşenle karşılaştır (hatırlatmalar kurulu)
 
 ## İlgili belgeler
+- Dr. Arda Züber'in X gönderileri, sitesi ve blogundan opsiyon notları: https://claude.ai/artifact/5hYW8KowAYihhrcRBUSNAo
 - Opsiyon öğrenme rehberi (orta-ileri seviye, örnek hesaplar ve grafiklerle): https://claude.ai/artifact/QeLwWDqvH1eZWSJVGqqnpT
 - Repo araştırma raporu (MIT, Apache-2.0 ve BSD lisanslı repolar): https://claude.ai/artifact/NaMrKi1hWgs54BuUDkofs7
