@@ -1,0 +1,62 @@
+# Karar Defteri 📒
+
+Bu dosya, çalışmalarımızda aldığımız kararları ve kuralları tek yerde tutar. Yeni bir sohbete başlarken Claude'a "KARARLAR.md'yi oku" demek yeterli.
+
+Son güncelleme: 15/11/2026
+
+## Temel ilkeler
+- Tüm analizler **öğrenme amaçlıdır**; kendim ya da başkaları için **yatırım tavsiyesi içermez**.
+- Paylaşım hedefi: önce öğrenmek, sonra X'te paylaşmak.
+- Hazır, uçtan uca çalışan repolar tercih edilir; sıfırdan yazmak son çaredir.
+- Kabul edilen lisanslar: **MIT, Apache-2.0, BSD**. GPL ve AGPL lisanslı repolar kullanılmaz.
+- Teknik analizde 6 yıllık deneyim var; göstergelerin temel anlatımına gerek yok. Opsiyonlara hâkimim (çok bacaklı yapılar dahil).
+- Çalışma ortamı: Windows, Google Colab, GitHub (`DunyaVatandasi/abd-borsa-calismalari`).
+
+## Çalışma çerçevesi
+Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**.
+
+## Not defterleri
+| # | Konu | Not |
+|---|------|-----|
+| 01 | Hareketli ortalamalar ve fiyatın ortalamaya uzaklığı | Uzaklık arttıkça risk artar ("mıknatıs" fikri) |
+| 02 | Haber ve StockTwits duyarlılığı | Sosyal medya için **FinTwitBERT** seçildi (FinBERT çoğu yorumu nötr okuyordu). Tarama süresi `saat` parametresiyle ayarlanır. Yahoo haberleri engellenirse Google News yedeği devreye girer. |
+| 03 | Temel analiz ve rakip karşılaştırması | yfinance verisi |
+| 05 | TradingAgents ile tek tıkla ajan analizi | Claude API, anahtar Colab Gizli Anahtarlar'da (`ANTHROPIC_API_KEY`) |
+| 06 | Opsiyon karar hunisi | API anahtarı ve maliyet yok |
+
+## Karar kartı ve X gönderisi biçimi (05)
+- Kart hisse kodu ve **GG/AA/YYYY** tarihle başlar; "Hisse / Tarih" etiketi kullanılmaz.
+- Hareketli ortalama değerleri parantez içinde yazılmaz.
+- Analist hedef fiyatları ve F/K oranı yer alır.
+- X gönderisi her zaman **"KOPYALAMAK İÇİN DÜZ METİN"** bölümünden kopyalanır. Ekrandaki kartta ＄ işareti görünür ve X'te cashtag olarak çalışmaz.
+- Gönderiler "Öğrenme amaçlıdır, yatırım tavsiyesi değildir." ile biter.
+
+## TradingAgents ayarları (05)
+- **Tarama:** Sonnet ve 1 tartışma turu, hisse başına yaklaşık 0,15–0,20 $.
+- **Derin inceleme:** Opus ve 2 tur, hisse başına yaklaşık 0,50 $.
+- Ucuz ayarlar "Tut" kararına yatkın. CRDO'da Opus ve 2 tur, kararı "Tut"tan "Ağırlığı azalt"a çevirdi.
+- Ajan raporlarında sorulacak soru: argüman gerçek bir bulguya mı, yoksa veri eksikliğine mi dayanıyor?
+
+## Opsiyon kuralları (06)
+- Vade: **7–45 gün**. Otomatik seçim, 30 güne en yakın ve bilançoyu kapsamayan vadedir.
+- Kısa bacak: **0,20–0,30 delta**.
+- Spread genişliği: **hisse fiyatının en fazla %4'ü**.
+- Likidite: en az 100 açık pozisyon ve orta fiyatın en fazla %10'u kadar alış-satış makası.
+- Pahalı/ucuz kararı: **IV rank** (MarketChameleon'dan elle girilir) **50 ve üstü pahalı, 25 ve altı ucuz**. IV rank girilmezse IV/HV20 oranı kullanılır: 1,25 ve üstü pahalı, 0,9 ve altı ucuz.
+- MarketChameleon'daki "IV30 % Rank" bir yüzdeliktir; klasik IV Rank'e karşılık gelen ölçü "52-Week Position"dır.
+- Yön sinyalleri: söz (StockTwits), para (put/call oranı, çarpıklık), fiyat (SMA20 ve SMA50).
+- **Belirli bir yapıya bağlılık yok:** debit, kredi, tek bacak ya da çok bacaklı; analiz neyi gösteriyorsa ona bakılır.
+- Hisse adayları ApeWisdom (Reddit) ve StockTwits trend listelerinden gelir.
+- En sağlıklı sonuç ABD seansı içinde, TSİ 17:30–24:00 arasında alınır. Hafta sonu son işlem fiyatları kullanılır.
+
+## Açık işler ve fikirler
+- [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
+- [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
+- [ ] Haftalık X içeriği için hisse karşılaştırma tablosu
+- [ ] Kendi StockTwits ve teknik araçlarımızı TradingAgents'a bağlamak
+- [ ] Makro veri için ücretsiz FRED anahtarı
+- [ ] Zamanlanmış günlük çalıştırma
+- [ ] Opsiyon stratejilerinin geriye dönük testi (geçmiş opsiyon verisi gerektirir)
+
+## İlgili belgeler
+- Repo araştırma raporu (MIT, Apache-2.0 ve BSD lisanslı repolar): https://claude.ai/artifact/NaMrKi1hWgs54BuUDkofs7
