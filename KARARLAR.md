@@ -104,8 +104,23 @@ Karar vermeyen ama okunması gereken notlar:
 - Sembolde IWM (−0,088) ve NVDA (−0,011) negatif; diğer sekizi pozitif.
 - 07b'deki 60 günlük tahmin (+0,4–0,65 R) uzun veride ~10 kat küçüldü; kısa örneklem etkiyi büyük göstermişti.
 
+## Önceden kayıtlı test: Seviye ve EMA teyitleri (07d)
+**Kayıt tarihi:** 16/11/2026, piyasa öncesi veri indirilmeden ve aşağıdaki filtreler 2016–2026 verisinde hiç hesaplanmadan önce. Kaynak: Gökhan'ın bulduğu "önceki güne göre işlem" belgesi (PDH/PDL, PMH/PML, 13/48/200 EMA, 15 dk gövde kapanışı). Belgenin ret senaryoları ve 13 EMA'ya geri çekilmede giriş bu teste dahil değildir (ayrı strateji).
+- **Veri:** Alpaca 1 dk, 01/01/2016–21/08/2026, aynı evren (SPY, QQQ, IWM + Mag7). Seans mumları 07c önbelleğinden; piyasa öncesi (04:00–09:30 ET) mumları yeni indirilir. Vadeli veri kullanılmaz.
+- **Temel ORB (07c ile aynı, sabit):** aralık yönü, aralık ucuna anlık stop emri, stop aralığın karşı ucu, gün sonunda çıkış, son giriş 15:30; kötümser varsayım esas, iyimser raporlanır; komisyon 0,0035 $/hisse, kayma ETF 1 bps, hisse 3 bps. Aralıklar: 5 dk (ana) ve 15 dk.
+- **F1 · PDH/PDL "yol açık":** uzun işlemde giriş fiyatı önceki seansın en yükseğinin (PDH) üstünde, kısa işlemde önceki seansın en düşüğünün (PDL) altında.
+- **F2 · EMA hizalaması:** seans içi 5 dk kapanışlarından (günler arası kesintisiz) 13, 48 ve 200 EMA. Girişten önce tamamlanmış son 5 dk mumunda uzun için EMA13 > EMA48 > EMA200, kısa için tersi. 200 mumdan az geçmişi olan günler bu testten çıkar.
+- **F3 · PMH/PML:** uzun işlemde giriş fiyatı aynı günün piyasa öncesi en yükseğinin (PMH, 04:00–09:29) üstünde, kısada piyasa öncesi en düşüğünün (PML) altında. 10'dan az piyasa öncesi mumu olan günler bu testten çıkar.
+- **V · Gövde kapanışı ile giriş (varyant):** aralık uzunluğundaki mumlarla (5 dk ORB'de 5 dk, 15 dk ORB'de 15 dk), kapanışı aralığın dışında olan ilk mumun kapanışında giriş (15:30'a kadar); stop ve çıkış aynı. Temel ORB'nin işlem açtığı her sembol-gün için fark = varyant net R (işlem yoksa 0) − temel net R.
+- **Filtre testi (F1–F3):** fark = filtre sağlanan işlemlerin ortalama net R'ı − sağlanmayanların (kötümser). Gün bazında permütasyon (07c ile aynı yöntem), 5.000 tekrar, tek yönlü.
+- **Varyant testi (V):** sembol-gün farklarının ortalaması; gün bazında işaret çevirme permütasyonu, 5.000 tekrar, tek yönlü.
+- **Doğrulandı sayılmak için (her aralıkta ayrı, dört testin her biri için):** (1) p < **0,00625** (0,025 ÷ 4, aynı aralıktaki dört test için Bonferroni), (2) fark 2016–2020 ve 2021–2026'da ayrı ayrı pozitif, (3) fark iyimser varsayımda da pozitif, (4) filtrelerde iki grubun her birinde en az 200 işlem.
+- **Raporlanır ama karar vermez:** filtre sağlanan işlemlerin mutlak net R'ı, üç filtrenin birlikte sağlandığı işlemler, ETF / Mag7 ve sembol kırılımı, yıllara göre sonuç, filtrelerin 07c skoru ile örtüşmesi.
+- Eşikler ve tanımlar veri görüldükten sonra değiştirilmez; değiştirilirse test geçersiz sayılır ve yeni kayıt gerekir.
+
 ## Açık işler ve fikirler
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
+- [ ] 07d: seviye ve EMA teyitleri önceden kayıtlı testini çalıştırmak (Alpaca piyasa öncesi verisi)
 - [ ] 07c sonrası: skor 4'ü ayrı bir kural olarak test etmek **yeni bir önceden kayıt** gerektirir (bu veride bulundu); 2026 sonrası veriyle sınanmalı
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
 - [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
