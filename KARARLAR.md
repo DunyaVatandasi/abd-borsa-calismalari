@@ -153,9 +153,21 @@ Karar vermeyen ama okunması gereken notlar:
 - **Doğrulandı sayılmak için (her kol ayrı):** (1) p < **0,0125** (0,025 ÷ 2, Bonferroni), (2) ortalama 2016–2020 ve 2021–2026'da ayrı ayrı pozitif, (3) iyimser varsayımda da pozitif, (4) en az 200 işlem.
 - **Raporlanır ama karar vermez:** isabet oranı, hedefe ulaşma payı, seviye türüne göre (PDH/PDL ile PMH/PML), ETF / Mag7 ve sembol kırılımı, yıllara göre sonuç, 5 dk ORB (−0,021 R) ile kıyas, EMA filtresi olmadan sonuç.
 
+### Sonuç (16/11/2026 · Alpaca 1 dk seans + piyasa öncesi, 2016–2026)
+Notebook çıktısı, değiştirilmeden:
+- Kol A · kırılım: DOĞRULANMADI · net R -0,323, p=1,0000, 2016–2020 -0,348 / 2021–2026 -0,301, iyimser -0,320, isabet %31,2, 10.896 işlem
+- Kol B · ret: DOĞRULANMADI · net R -0,251, p=1,0000, 2016–2020 -0,266 / 2021–2026 -0,235, iyimser -0,251, isabet %42,0, 3.169 işlem
+
+Karar vermeyen ama okunması gereken notlar:
+- İki kol da 2016–2026'nın her yılında negatif; seviye türü, yön, ETF/Mag7 ayrımı fark etmiyor. Tek tek sembollerin hiçbiri pozitif değil.
+- Kırılımda ortalama risk 23 bps, retde 41 bps. Gidiş-dönüş kayma (ETF 2, hisse 6 bps) bu risklere göre yaklaşık 0,1–0,25 R ediyor (tahmin); maliyet öncesi sonuç da sıfırın altında ya da sıfıra yakın. Kenar yok, maliyet kaybı büyütüyor.
+- EMA filtresi olmadan kırılım −0,311 R (16.613 işlem): filtre işlem sayısını üçte bir azaltıyor ama sonucu değiştirmiyor.
+- ETF'ler Mag7'den daha az kötü (A: −0,180 / −0,393; B: −0,152 / −0,301), çünkü kayma ETF'de düşük.
+- 5 dk ORB (−0,021 R) çıtasının belirgin altında.
+
 ## Açık işler ve fikirler
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
-- [ ] 07e: seviye + EMA geri çekilme stratejisi önceden kayıtlı testini çalıştırmak
+- [x] 07e: seviye + EMA geri çekilme stratejisi test edildi (16/11/2026) — iki kol da doğrulanmadı, her yıl negatif
 - [x] 07d: seviye ve EMA teyitleri test edildi (16/11/2026) — sekiz testin hiçbiri doğrulanmadı
 - [ ] 07c sonrası: skor 4'ü ayrı bir kural olarak test etmek **yeni bir önceden kayıt** gerektirir (bu veride bulundu); 2026 sonrası veriyle sınanmalı
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
