@@ -59,7 +59,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 
 ## Gün içi stratejiler (07)
 - **Ayrı parkur:** 01–06'dan bağımsızdır; opsiyon kuralları (21–45 gün vade vb.) burada geçerli değildir, yalnızca dayanak varlıkla (ETF / hisse) çalışılır. Pozisyonlar aynı gün kapanır.
-- Başlangıç stratejisi **15 dk ORB** (Zarattini, Barbon ve Aziz 2024 kuralları: aralık yönü, aralık ucuna stop emri, 14 günlük ATR'nin %10'u stop, gün sonunda çıkış).
+- Ana aralık **5 dk ORB** (16/11/2026; 07c'de vadeli yön filtresi yalnızca 5 dk'da doğrulandı). 15 dk karşılaştırma olarak her raporda yan yana gösterilir; 10 yıllık veride ikisinin mutlak sonucu da sıfıra yakın (5 dk −0,021 R, 15 dk +0,007 R, filtresiz). Yeni kurallar iki aralıkta birden ve önceden kayıtla test edilir. Temel kurallar Zarattini, Barbon ve Aziz 2024: aralık yönü, aralık ucuna stop emri, gün sonunda çıkış (başlangıçta 15 dk ve ATR %10 stop ile incelendi).
 - Sonuçlar **R** cinsinden, **maliyet sonrası** ve **rastgele yönlü kıyasla** birlikte değerlendirilir. Kâr iki parçaya ayrılır: yapı katkısı (rastgele yönün ortalaması) ve yön katkısı (strateji − rastgele).
 - 5 dk veri kullanıldığında sonuç iki mum içi varsayımla (kötümser / iyimser) **aralık** olarak okunur; aralık işaret değiştiriyorsa karar verilmez.
 - Varsayılan maliyet: hisse başına 0,0035 $ komisyon (her yön), 1 bps kayma (likit ETF). Tek hisselerde kayma 2–5 bps.
