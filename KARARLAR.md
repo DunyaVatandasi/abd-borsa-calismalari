@@ -26,6 +26,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 | 07 | Gün içi stratejiler: ORB ve alternatifleri | Ayrı parkur. Bölüm 1: 15 dk ORB, yfinance 5 dk veri (son ~60 gün) |
 | 07b | ORB Bölüm 2: 5 dk mı 15 dk mı, hangi teyit? | Sabit evren, hisse bazında sonuç, filtreler permütasyon + q testiyle |
 | 07c | Önceden kayıtlı test: vadeli yön uyumu | 1 dk veri 2016–2026; Alpaca + Databento anahtarı gerekir (Colab Gizli anahtarlar) |
+| 07d | Önceden kayıtlı test: seviye ve EMA teyitleri | PDH/PDL, EMA 13/48/200, PMH/PML, gövde kapanışı; Alpaca anahtarı yeterli |
 
 ## Karar kartı ve X gönderisi biçimi (05)
 - Kart hisse kodu ve **GG/AA/YYYY** tarihle başlar; "Hisse / Tarih" etiketi kullanılmaz.
