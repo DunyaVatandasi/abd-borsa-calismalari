@@ -15,6 +15,7 @@ stratejileri üzerine öğrenme günlüğüm.
 | 07b | ORB Bölüm 2: 5 dk mı 15 dk mı, hangi teyit (VWAP, ES/NQ, göreli hacim)? | [07b_orb_teyitler.ipynb](07b_orb_teyitler.ipynb) |
 | 07c | Önceden kayıtlı test: ORB + vadeli yön uyumu, 1 dk veri 2016–2026 | [07c_onceden_kayitli_test.ipynb](07c_onceden_kayitli_test.ipynb) |
 | 07d | Önceden kayıtlı test: ORB + PDH/PDL, EMA 13/48/200, PMH/PML, gövde kapanışı | [07d_seviye_ema_teyitleri.ipynb](07d_seviye_ema_teyitleri.ipynb) |
+| 07e | Önceden kayıtlı test: seviye + EMA geri çekilme stratejisi (ORB rafa kaldırıldıktan sonra) | [07e_seviye_ema_stratejisi.ipynb](07e_seviye_ema_stratejisi.ipynb) |
 
 ## Uyarı
 Bu repodaki tüm analizler **öğrenme amaçlıdır** ve **yatırım tavsiyesi değildir**.

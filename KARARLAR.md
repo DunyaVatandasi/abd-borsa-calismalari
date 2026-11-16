@@ -27,6 +27,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 | 07b | ORB Bölüm 2: 5 dk mı 15 dk mı, hangi teyit? | Sabit evren, hisse bazında sonuç, filtreler permütasyon + q testiyle |
 | 07c | Önceden kayıtlı test: vadeli yön uyumu | 1 dk veri 2016–2026; Alpaca + Databento anahtarı gerekir (Colab Gizli anahtarlar) |
 | 07d | Önceden kayıtlı test: seviye ve EMA teyitleri | PDH/PDL, EMA 13/48/200, PMH/PML, gövde kapanışı; Alpaca anahtarı yeterli |
+| 07e | Önceden kayıtlı test: seviye + EMA geri çekilme stratejisi | Kırılım ve ret kolları; 07c/07d Drive önbelleğini kullanır |
 
 ## Karar kartı ve X gönderisi biçimi (05)
 - Kart hisse kodu ve **GG/AA/YYYY** tarihle başlar; "Hisse / Tarih" etiketi kullanılmaz.
@@ -146,6 +147,7 @@ Karar vermeyen ama okunması gereken notlar:
 - **Kol A · Kırılım:** uzun = 15 dk kapanış PDH ya da PMH'nin üstünde ve bir önceki 15 dk kapanış o seviyenin altında/eşit; kısa = PDL ya da PML için tersi. Stop = kırılan seviye.
 - **Kol B · Ret:** kısa = 15 dk mumun açılışı ve kapanışı PDH (ya da PMH) altında, en yükseği seviyeye değmiş/aşmış; uzun = PDL (ya da PML) için tersi. Stop = sinyal mumunun en yükseği (kısa) / en düşüğü (uzun).
 - **Giriş (iki kolda aynı):** sinyal mumu kapandıktan sonraki 60 dakika içinde, bir 5 dk mumun en düşüğü (uzun) bir önceki tamamlanmış mumun 13 EMA'sına değer ve kapanışı o değerin üstündeyse kapanışta giriş (kısada tersi). Son giriş 15:30. Giriş fiyatı stopun yanlış tarafındaysa işlem yok. Sembol başına günde kol başına tek işlem (ilk geçerli giriş).
+- **Stop düzeltmesi (16/11/2026, gerçek veri görülmeden):** sahte veri testinde giriş seviyenin hemen yanında olunca risk 0,03 bps'e düşüp maliyet R'ı −200'e çıkardı. Belgedeki "seviyenin / 13 EMA'nın gerisi" ifadesine uygun olarak stop = kırılan seviye (retde sinyal mumunun ucu) ile giriş mumunun en düşüğü (kısada en yükseği) arasından girişe **uzak olanı**; risk girişin %0,10'undan azsa stop girişten %0,10 uzağa konur. Test eşikleri değişmedi.
 - **Hedef:** işlem yönünde girişten sonraki ilk kilit seviye (PDH, PDL, PMH, PML arasından); yoksa gün sonu kapanışı. Çıkış 1 dk mumlarla: stop ya da hedef; aynı dakikada ikisi birden mümkünse kötümser = stop, iyimser = hedef. Hiçbiri olmazsa gün sonu kapanışı.
 - **Test (kol başına, iki test):** maliyet sonrası ortalama net R (kötümser) > 0. Gün bazında işaret çevirme permütasyonu (günlük toplam R'lar rastgele ±1), 5.000 tekrar, tek yönlü.
 - **Doğrulandı sayılmak için (her kol ayrı):** (1) p < **0,0125** (0,025 ÷ 2, Bonferroni), (2) ortalama 2016–2020 ve 2021–2026'da ayrı ayrı pozitif, (3) iyimser varsayımda da pozitif, (4) en az 200 işlem.
