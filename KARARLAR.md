@@ -60,6 +60,12 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 - **Bilanço:** Seçilen vade bilançoyu kapsıyorsa bu durum kartta belirtilir. Bilançodan sonraki ilk vadenin beklenen hareketi, 7 gün kuralından bağımsız olarak bilgi amaçlı gösterilir. Strateji tablosundaki IV_düşüşü sütunu, bilanço sonrası IV düşüşünün (IV crush) her yapıya etkisini gösterir: lehine, aleyhine ya da nötre yakın.
 
 ## Gün içi stratejiler (07)
+- **PARKUR KAPATILDI (16/11/2026).** Önceden kayıtla test edilen 12 gün içi kural/filtreden yalnızca biri sınırda doğrulandı (07c, 5 dk vadeli yön filtresi, skor ≥ 3 işlemleri +0,017 R). Özet, 2016–2026, 1 dk veri, maliyet sonrası işlem başı:
+  - 5 dk ORB −0,021 R; 15 dk ORB +0,007 R (filtresiz).
+  - 07d: PDH/PDL, EMA 13/48/200, PMH/PML filtreleri ve gövde kapanışı girişi — 8 testin 8'i doğrulanmadı.
+  - 07e: seviye + EMA geri çekilme stratejisi — kırılım −0,323 R, ret −0,251 R; 11 yılın hiçbirinde pozitif değil.
+  - **Ders:** bu evrende 1 dk gün içi kırılım tarzı kurallar maliyetten sonra kenar bırakmıyor; 60 günlük örneklemde görülen etkiler 10 yılda ~10 kat küçüldü. Sonuca bakarak yeni filtre/stop denemek veri madenciliğine dönüşeceği için parkur burada bırakıldı.
+  - Notebook'lar (07–07e) ve Drive önbelleği (Alpaca seans + piyasa öncesi, Databento ES/NQ/RTY) referans olarak kalır. Yeniden açılırsa yalnızca yeni ve önceden kayıtlı bir hipotezle, tercihen 21/08/2026 sonrası veriyle.
 - **Ayrı parkur:** 01–06'dan bağımsızdır; opsiyon kuralları (21–45 gün vade vb.) burada geçerli değildir, yalnızca dayanak varlıkla (ETF / hisse) çalışılır. Pozisyonlar aynı gün kapanır.
 - **ORB rafa kaldırıldı (16/11/2026):** 07c ve 07d'de hiçbir teyit mutlak kenar üretmedi (5 dk ORB maliyet sonrası −0,021 R). Notebook'lar ve sonuçlar referans olarak kalır; yeni gün içi stratejiler bu çıtayla kıyaslanır. Sıradaki strateji: 07e seviye + EMA geri çekilme.
 - (Rafa kaldırılmadan önceki karar) Ana aralık **5 dk ORB** (16/11/2026; 07c'de vadeli yön filtresi yalnızca 5 dk'da doğrulandı). 15 dk karşılaştırma olarak her raporda yan yana gösterilir; 10 yıllık veride ikisinin mutlak sonucu da sıfıra yakın (5 dk −0,021 R, 15 dk +0,007 R, filtresiz). Yeni kurallar iki aralıkta birden ve önceden kayıtla test edilir. Temel kurallar Zarattini, Barbon ve Aziz 2024: aralık yönü, aralık ucuna stop emri, gün sonunda çıkış (başlangıçta 15 dk ve ATR %10 stop ile incelendi).
@@ -169,7 +175,8 @@ Karar vermeyen ama okunması gereken notlar:
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
 - [x] 07e: seviye + EMA geri çekilme stratejisi test edildi (16/11/2026) — iki kol da doğrulanmadı, her yıl negatif
 - [x] 07d: seviye ve EMA teyitleri test edildi (16/11/2026) — sekiz testin hiçbiri doğrulanmadı
-- [ ] 07c sonrası: skor 4'ü ayrı bir kural olarak test etmek **yeni bir önceden kayıt** gerektirir (bu veride bulundu); 2026 sonrası veriyle sınanmalı
+- [ ] (Parkur kapalı; yeniden açılırsa) 07c skor 4'ü ayrı kural olarak, yeni önceden kayıtla ve 21/08/2026 sonrası veriyle sınamak
+- [ ] Gün içi parkur sonuçlarını (07–07e) bir X dizisine dönüştürmek
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
 - [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
 - [ ] Haftalık X içeriği için hisse karşılaştırma tablosu
