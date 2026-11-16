@@ -60,7 +60,8 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 
 ## Gün içi stratejiler (07)
 - **Ayrı parkur:** 01–06'dan bağımsızdır; opsiyon kuralları (21–45 gün vade vb.) burada geçerli değildir, yalnızca dayanak varlıkla (ETF / hisse) çalışılır. Pozisyonlar aynı gün kapanır.
-- Ana aralık **5 dk ORB** (16/11/2026; 07c'de vadeli yön filtresi yalnızca 5 dk'da doğrulandı). 15 dk karşılaştırma olarak her raporda yan yana gösterilir; 10 yıllık veride ikisinin mutlak sonucu da sıfıra yakın (5 dk −0,021 R, 15 dk +0,007 R, filtresiz). Yeni kurallar iki aralıkta birden ve önceden kayıtla test edilir. Temel kurallar Zarattini, Barbon ve Aziz 2024: aralık yönü, aralık ucuna stop emri, gün sonunda çıkış (başlangıçta 15 dk ve ATR %10 stop ile incelendi).
+- **ORB rafa kaldırıldı (16/11/2026):** 07c ve 07d'de hiçbir teyit mutlak kenar üretmedi (5 dk ORB maliyet sonrası −0,021 R). Notebook'lar ve sonuçlar referans olarak kalır; yeni gün içi stratejiler bu çıtayla kıyaslanır. Sıradaki strateji: 07e seviye + EMA geri çekilme.
+- (Rafa kaldırılmadan önceki karar) Ana aralık **5 dk ORB** (16/11/2026; 07c'de vadeli yön filtresi yalnızca 5 dk'da doğrulandı). 15 dk karşılaştırma olarak her raporda yan yana gösterilir; 10 yıllık veride ikisinin mutlak sonucu da sıfıra yakın (5 dk −0,021 R, 15 dk +0,007 R, filtresiz). Yeni kurallar iki aralıkta birden ve önceden kayıtla test edilir. Temel kurallar Zarattini, Barbon ve Aziz 2024: aralık yönü, aralık ucuna stop emri, gün sonunda çıkış (başlangıçta 15 dk ve ATR %10 stop ile incelendi).
 - Sonuçlar **R** cinsinden, **maliyet sonrası** ve **rastgele yönlü kıyasla** birlikte değerlendirilir. Kâr iki parçaya ayrılır: yapı katkısı (rastgele yönün ortalaması) ve yön katkısı (strateji − rastgele).
 - 5 dk veri kullanıldığında sonuç iki mum içi varsayımla (kötümser / iyimser) **aralık** olarak okunur; aralık işaret değiştiriyorsa karar verilmez.
 - Varsayılan maliyet: hisse başına 0,0035 $ komisyon (her yön), 1 bps kayma (likit ETF). Tek hisselerde kayma 2–5 bps.
@@ -136,8 +137,23 @@ Karar vermeyen ama okunması gereken notlar:
 - EMA hizalaması 2021–2026'da iki aralıkta da negatif. Gövde kapanışı ile giriş, anlık stop emrine göre fark yaratmıyor (±0,003 R).
 - PMH/PML ile 07c'nin 4. şartı (vadeli gece aralığı aşıldı mı) aynı fikrin iki ölçümü; ikisi de küçük ve pozitif. Bağımsız iki kanıt sayılmaz.
 
+## Önceden kayıtlı test: Seviye + EMA geri çekilme stratejisi (07e)
+**Kayıt tarihi:** 16/11/2026, strateji bu veride hiç çalıştırılmadan önce. Kaynak: Gökhan'ın "önceki güne göre işlem" belgesi. Belirsiz kısımlar aşağıdaki gibi mekanik hale getirildi; bunlar sonradan değiştirilmez.
+- **Veri ve evren:** 07c/07d önbelleği (Alpaca 1 dk seans + piyasa öncesi), 01/01/2016–21/08/2026, SPY, QQQ, IWM + Mag7. Maliyet: 0,0035 $/hisse komisyon, kayma ETF 1 bps, hisse 3 bps (her yön).
+- **Seviyeler:** PDH/PDL = önceki seansın en yükseği/düşüğü; PMH/PML = aynı günün 04:00–09:29 en yükseği/düşüğü (10'dan az piyasa öncesi mumu varsa PMH/PML yok). Çizgi olarak.
+- **Sinyal mumu:** seans içi 15 dk mumlar (09:30, 09:45, …). İlk 30 dakika beklenir: sinyal mumunun başlangıcı en erken 10:00.
+- **Trend:** sinyal mumunun kapanışında, tamamlanmış son 5 dk mumunda EMA 13/48/200 (seans içi 5 dk kapanışları, günler arası kesintisiz, `adjust=False`). Uzun için 13 > 48 > 200, kısa için tersi; değilse sinyal yok.
+- **Kol A · Kırılım:** uzun = 15 dk kapanış PDH ya da PMH'nin üstünde ve bir önceki 15 dk kapanış o seviyenin altında/eşit; kısa = PDL ya da PML için tersi. Stop = kırılan seviye.
+- **Kol B · Ret:** kısa = 15 dk mumun açılışı ve kapanışı PDH (ya da PMH) altında, en yükseği seviyeye değmiş/aşmış; uzun = PDL (ya da PML) için tersi. Stop = sinyal mumunun en yükseği (kısa) / en düşüğü (uzun).
+- **Giriş (iki kolda aynı):** sinyal mumu kapandıktan sonraki 60 dakika içinde, bir 5 dk mumun en düşüğü (uzun) bir önceki tamamlanmış mumun 13 EMA'sına değer ve kapanışı o değerin üstündeyse kapanışta giriş (kısada tersi). Son giriş 15:30. Giriş fiyatı stopun yanlış tarafındaysa işlem yok. Sembol başına günde kol başına tek işlem (ilk geçerli giriş).
+- **Hedef:** işlem yönünde girişten sonraki ilk kilit seviye (PDH, PDL, PMH, PML arasından); yoksa gün sonu kapanışı. Çıkış 1 dk mumlarla: stop ya da hedef; aynı dakikada ikisi birden mümkünse kötümser = stop, iyimser = hedef. Hiçbiri olmazsa gün sonu kapanışı.
+- **Test (kol başına, iki test):** maliyet sonrası ortalama net R (kötümser) > 0. Gün bazında işaret çevirme permütasyonu (günlük toplam R'lar rastgele ±1), 5.000 tekrar, tek yönlü.
+- **Doğrulandı sayılmak için (her kol ayrı):** (1) p < **0,0125** (0,025 ÷ 2, Bonferroni), (2) ortalama 2016–2020 ve 2021–2026'da ayrı ayrı pozitif, (3) iyimser varsayımda da pozitif, (4) en az 200 işlem.
+- **Raporlanır ama karar vermez:** isabet oranı, hedefe ulaşma payı, seviye türüne göre (PDH/PDL ile PMH/PML), ETF / Mag7 ve sembol kırılımı, yıllara göre sonuç, 5 dk ORB (−0,021 R) ile kıyas, EMA filtresi olmadan sonuç.
+
 ## Açık işler ve fikirler
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
+- [ ] 07e: seviye + EMA geri çekilme stratejisi önceden kayıtlı testini çalıştırmak
 - [x] 07d: seviye ve EMA teyitleri test edildi (16/11/2026) — sekiz testin hiçbiri doğrulanmadı
 - [ ] 07c sonrası: skor 4'ü ayrı bir kural olarak test etmek **yeni bir önceden kayıt** gerektirir (bu veride bulundu); 2026 sonrası veriyle sınanmalı
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
