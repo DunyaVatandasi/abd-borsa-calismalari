@@ -92,8 +92,21 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
   Biri bile sağlanmazsa sonuç **doğrulanmadı** olarak kaydedilir.
 - **Raporlanır ama karar vermez:** skor 0–4 boyunca sonuç eğrisi, ETF / Mag7 ve sembol kırılımı, "skor ≥ 3" işlemlerinin mutlak net R'ı ve rastgele yönle kıyası, yıllara göre sonuç.
 
+### Sonuç (16/11/2026 · Alpaca + Databento 1 dk, 2016–2026)
+Notebook çıktısı, değiştirilmeden:
+- 5 dk: DOĞRULANDI · fark 0,057 R, p=0,0234, 2016–2020 0,107 / 2021–2026 0,016, iyimser 0,058, 22.039 işlem
+- 15 dk: DOĞRULANMADI · fark 0,034 R, p=0,0964, 2016–2020 0,026 / 2021–2026 0,042, iyimser 0,034, 20.748 işlem
+
+Karar vermeyen ama okunması gereken notlar:
+- 5 dk'da "skor ≥ 3" işlemlerinin mutlak sonucu yalnızca +0,017 R (filtresiz −0,021 R). Kural kötüyü ayıklıyor ama tek başına anlamlı bir kâr kenarı üretmiyor.
+- Etki tekdüze değil: skor 3 → −0,057 R, skor 4 → +0,109 R. Asıl katkı dört şartın hepsinin tuttuğu günlerden geliyor.
+- Etki son dönemde zayıf: 2021–2026 farkı 0,016 R; 2023 (−0,166) ve 2025 (−0,090) negatif. 11 yılın 7'sinde pozitif.
+- Sembolde IWM (−0,088) ve NVDA (−0,011) negatif; diğer sekizi pozitif.
+- 07b'deki 60 günlük tahmin (+0,4–0,65 R) uzun veride ~10 kat küçüldü; kısa örneklem etkiyi büyük göstermişti.
+
 ## Açık işler ve fikirler
-- [ ] 07c: Alpaca ve Databento hesapları, Colab gizli anahtarları (Gökhan) → önceden kayıtlı testi çalıştırmak
+- [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
+- [ ] 07c sonrası: skor 4'ü ayrı bir kural olarak test etmek **yeni bir önceden kayıt** gerektirir (bu veride bulundu); 2026 sonrası veriyle sınanmalı
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
 - [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
 - [ ] Haftalık X içeriği için hisse karşılaştırma tablosu
