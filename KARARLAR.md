@@ -119,9 +119,26 @@ Karar vermeyen ama okunması gereken notlar:
 - **Raporlanır ama karar vermez:** filtre sağlanan işlemlerin mutlak net R'ı, üç filtrenin birlikte sağlandığı işlemler, ETF / Mag7 ve sembol kırılımı, yıllara göre sonuç, filtrelerin 07c skoru ile örtüşmesi.
 - Eşikler ve tanımlar veri görüldükten sonra değiştirilmez; değiştirilirse test geçersiz sayılır ve yeni kayıt gerekir.
 
+### Sonuç (16/11/2026 · Alpaca 1 dk seans + piyasa öncesi, 2016–2026)
+Notebook çıktısı, değiştirilmeden:
+- 5 dk · F1 · PDH/PDL yol açık: DOĞRULANMADI · fark 0,033 R, p=0,1040, 2016–2020 0,051 / 2021–2026 0,016, iyimser 0,028, işlem 6.968 / 16.127
+- 5 dk · F2 · EMA 13/48/200: DOĞRULANMADI · fark -0,011 R, p=0,6621, 2016–2020 0,030 / 2021–2026 -0,046, iyimser -0,015, işlem 8.564 / 14.514
+- 5 dk · F3 · PMH/PML: DOĞRULANMADI · fark 0,046 R, p=0,0348, 2016–2020 0,058 / 2021–2026 0,036, iyimser 0,044, işlem 10.769 / 11.508
+- 5 dk · V · gövde kapanışı: DOĞRULANMADI · fark 0,003 R, p=0,3507, 2016–2020 -0,012 / 2021–2026 0,016, iyimser -0,000, işlem 20.688 / 23.095
+- 15 dk · F1 · PDH/PDL yol açık: DOĞRULANMADI · fark -0,013 R, p=0,7317, 2016–2020 -0,026 / 2021–2026 -0,003, iyimser -0,014, işlem 8.067 / 13.652
+- 15 dk · F2 · EMA 13/48/200: DOĞRULANMADI · fark 0,009 R, p=0,3303, 2016–2020 0,040 / 2021–2026 -0,019, iyimser 0,007, işlem 8.704 / 12.997
+- 15 dk · F3 · PMH/PML: DOĞRULANMADI · fark 0,016 R, p=0,2112, 2016–2020 0,004 / 2021–2026 0,027, iyimser 0,014, işlem 12.955 / 7.996
+- 15 dk · V · gövde kapanışı: DOĞRULANMADI · fark -0,003 R, p=0,6437, 2016–2020 -0,001 / 2021–2026 -0,004, iyimser -0,004, işlem 18.262 / 21.719
+
+Karar vermeyen ama okunması gereken notlar:
+- Sekiz testin hiçbiri doğrulanmadı. En yakını 5 dk PMH/PML (p=0,035, iki dönem ve iyimser pozitif); kayıtlı eşik 0,00625 olduğu için geçmedi. Tek test olsaydı bile 0,025'i geçmezdi.
+- Mutlak sonuçlar sıfıra yakın: 5 dk filtresiz −0,021 R, PMH/PML sağlanan +0,006 R, üç filtre birlikte +0,017 R (3.268 işlem). 15 dk filtresiz +0,007 R, üç filtre birlikte +0,029 R (4.601 işlem).
+- EMA hizalaması 2021–2026'da iki aralıkta da negatif. Gövde kapanışı ile giriş, anlık stop emrine göre fark yaratmıyor (±0,003 R).
+- PMH/PML ile 07c'nin 4. şartı (vadeli gece aralığı aşıldı mı) aynı fikrin iki ölçümü; ikisi de küçük ve pozitif. Bağımsız iki kanıt sayılmaz.
+
 ## Açık işler ve fikirler
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
-- [ ] 07d: seviye ve EMA teyitleri önceden kayıtlı testini çalıştırmak (Alpaca piyasa öncesi verisi)
+- [x] 07d: seviye ve EMA teyitleri test edildi (16/11/2026) — sekiz testin hiçbiri doğrulanmadı
 - [ ] 07c sonrası: skor 4'ü ayrı bir kural olarak test etmek **yeni bir önceden kayıt** gerektirir (bu veride bulundu); 2026 sonrası veriyle sınanmalı
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
 - [ ] IV kaydını açıp kendi IV geçmişimizi biriktirmek (Google Drive)
