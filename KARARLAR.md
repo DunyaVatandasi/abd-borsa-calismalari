@@ -28,7 +28,7 @@ Sıra: **kalabalığın sesi → teknik analiz → temel analiz → opsiyonlar**
 | 07c | Önceden kayıtlı test: vadeli yön uyumu | 1 dk veri 2016–2026; Alpaca + Databento anahtarı gerekir (Colab Gizli anahtarlar) |
 | 07d | Önceden kayıtlı test: seviye ve EMA teyitleri | PDH/PDL, EMA 13/48/200, PMH/PML, gövde kapanışı; Alpaca anahtarı yeterli |
 | 07e | Önceden kayıtlı test: seviye + EMA geri çekilme stratejisi | Kırılım ve ret kolları; 07c/07d Drive önbelleğini kullanır |
-| 08 | Teknik analiz sistemi: The Strat (sade), önceden kayıtlı test | yfinance günlük veri 2010–13/11/2026, günlük ve haftalık barlar; API anahtarı gerekmez. Karıştırılmış bar kıyası Colab'da birkaç dakika sürer |
+| 08 | Teknik analiz sistemi: The Strat (sade), önceden kayıtlı test | yfinance günlük veri 2010–13/11/2026, günlük ve haftalık barlar; API anahtarı gerekmez. Karıştırılmış bar kıyası Colab'da birkaç dakika sürer. **Sonuç: doğrulanmadı (17/11/2026)** |
 
 ## Karar kartı ve X gönderisi biçimi (05)
 - Kart hisse kodu ve **GG/AA/YYYY** tarihle başlar; "Hisse / Tarih" etiketi kullanılmaz.
@@ -173,6 +173,7 @@ Karar vermeyen ama okunması gereken notlar:
 - 5 dk ORB (−0,021 R) çıtasının belirgin altında.
 
 ## Teknik analiz sistemi: The Strat (08)
+- **SONUÇ (17/11/2026): 08 testi günlükte ve haftalıkta doğrulanmadı.** Önceden kayıttaki karar gereği Strat **tek başına sinyal olarak kullanılmaz**; yalnızca bar okuma dili olarak (bar tipi, kurulum, FTFC durumu bilgi amaçlı) kullanılır. Ayrıntılar aşağıda, 08 sonuç bölümünde.
 - **Karar (17/11/2026):** Teknik analizde tek bir sistem benimsendi: **The Strat**. Seçilme nedeni tamamen kurala dayalı olması: bar tipleri ve kurulumlar yoruma yer bırakmadan kodla tanımlanıyor, analiz her seferinde aynı çıkıyor ve ölçülebiliyor. Price action (Brooks, Volman) yoruma çok dayandığı için seçilmedi.
 - **Sade başlangıç:** broadening formation ve magnitude seviyeleri şimdilik **bekletiliyor**. Yalnızca bar kombinasyonları ve FTFC.
 - **Bar tipleri:** her bar bir öncekine göre sınıflanır. **1** inside (iki ucu da aşmadı), **2u** yalnız yükseği aştı, **2d** yalnız düşüğü aştı, **3** outside (ikisini de aştı). Eşit uç "aşmadı" sayılır.
@@ -203,13 +204,30 @@ Karar vermeyen ama okunması gereken notlar:
 - **Neden karıştırılmış bar (sahte veri denemesinde görüldü):** FTFC uyumlu kurulumların hedefi mekanik olarak daha yakın (medyan ~0,4R'ye karşı ~0,75R) ve yükselen piyasada uyumlu long'lar eğilimden pay alıyor; sırası rastgele piyasada bile FTFC farkı ~+0,03 R çıktı. İşlemler arasında etiket karıştıran permütasyon, çakışan işlemleri bağımsız saydığı için rastgele veride p=0,003 verdi; bu yüzden kullanılmadı.
 - **Raporlanır ama karar vermez:** kurulum ve yön kırılımı, yalnızca hedef ≥ 1R kurulumlar, hedefe ulaşma oranı, ETF / Mag7 ve sembol, yıllara göre sonuç, gerçek ile karıştırılmış sonuç farkı (sıra katkısı).
 - Eşikler ve tanımlar veri görüldükten sonra değiştirilmez; değiştirilirse test geçersiz sayılır ve yeni kayıt gerekir.
+- **Kodlama düzeltmesi (17/11/2026, ilk çalıştırmadan sonra):** ilk sürüm hisse başı komisyonu (0,0035 $) bölünmeye göre düzeltilmiş fiyata uyguluyordu; çok bölünen hisselerde (AAPL 28, NVDA 40, AMZN 20, GOOGL 40, TSLA 15 kat) eski yıllarda maliyet o oranda şişiyordu. Düzeltilmiş sürüm komisyonu bölünme çarpanıyla gerçek hisse fiyatına göre alır (commit `69cb982`). Kural, eşik ve tanımlar değişmedi; bu, kayıtlı maliyet kuralının doğru uygulanmasıdır. Esas sonuç düzeltilmiş sürümdür; ilk çıktı şeffaflık için aşağıda ayrıca durur.
+
+### Sonuç (17/11/2026 · yfinance günlük, 04/01/2010–13/11/2026)
+Notebook çıktısı (düzeltilmiş sürüm, esas), değiştirilmeden:
+- D: DOĞRULANMADI · FTFC uyumlu net R -0,087, p=1,0000 · fark 0,044 R, p=0,0998 · örneklem içi -0,091 / 0,042, dışı -0,072 / 0,052 · iyimser 0,036 / 0,040 · karıştırılmış fark ort. 0,020 · işlem 5.503 / 9.635
+- W: DOĞRULANMADI · FTFC uyumlu net R -0,106, p=1,0000 · fark 0,094 R, p=0,0224 · örneklem içi -0,094 / 0,119, dışı -0,143 / 0,010 · iyimser 0,058 / 0,067 · karıştırılmış fark ort. 0,029 · işlem 1.471 / 1.851
+
+İlk çalıştırma (komisyon hatalı, geçersiz; yalnızca kayıt için):
+- D: DOĞRULANMADI · FTFC uyumlu net R -0,130, p=1,0000 · fark 0,039 R, p=0,1471 · örneklem içi -0,148 / 0,035, dışı -0,072 / 0,052 · iyimser -0,008 / 0,034 · karıştırılmış fark ort. 0,020 · işlem 5.503 / 9.635
+- W: DOĞRULANMADI · FTFC uyumlu net R -0,123, p=1,0000 · fark 0,095 R, p=0,0200 · örneklem içi -0,116 / 0,121, dışı -0,143 / 0,010 · iyimser 0,041 / 0,068 · karıştırılmış fark ort. 0,029 · işlem 1.471 / 1.851
+
+Karar vermeyen ama okunması gereken notlar:
+- Esas (kötümser) varsayımda kenar yok: FTFC uyumlu işlemler maliyet sonrası günlükte −0,087 R, haftalıkta −0,106 R; örneklem içi ve dışı negatif. Hatadan etkilenmeyen ETF'ler (SPY, QQQ, IWM) de ilk çalıştırmada negatifti.
+- İyimser varsayımda ortalama pozitif (günlük +0,036, haftalık +0,058 R). Sonuç, aynı barda hedef ve stop görüldüğünde hangisinin önce geldiğine bağlı; olası bir kenar bu belirsizlik bandının içinde kalıyor ve günlük barla çözülemiyor.
+- Günlük FTFC farkı (+0,044 R), sırası karıştırılmış piyasadaki mekanik farkın (+0,020 R) üstünde ama anlamlı değil (p=0,100).
+- Haftalık FTFC farkı (+0,094 R) karıştırılmış farkın (+0,029 R) belirgin üstünde, p=0,022; 0,0125 eşiğini geçmedi. Fark örneklem içinde 0,119 R, 2023 sonrasında 0,010 R: son dönemde neredeyse kayboluyor (07c'deki desen).
+- İlk çalıştırmanın tablolarına göre kaybın ağırlığı 2-2 dönüşte (günlük işlemlerin ~%80'i); kötümser–iyimser farkının neredeyse tamamı da burada, çünkü 2-2'de giriş barı stopa da değebiliyor. Inside bar kurulumları (2-1-2, 3-1-2) küçük örneklemde hafif pozitif, hedefleri ~0,2R. Bunlardan sonradan kural seçmek veri madenciliği olur; yeniden sınanacaksa yalnızca yeni önceden kayıtla ve 13/11/2026 sonrası veriyle.
 
 ## Açık işler ve fikirler
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
 - [x] 07e: seviye + EMA geri çekilme stratejisi test edildi (16/11/2026) — iki kol da doğrulanmadı, her yıl negatif
 - [x] 07d: seviye ve EMA teyitleri test edildi (16/11/2026) — sekiz testin hiçbiri doğrulanmadı
-- [ ] 08: önceden kayıtlı Strat testini Colab'da çalıştırıp sonucu buraya eklemek
-- [ ] Strat isabet kaydı: 08'in 6. bölümündeki güncel kurulumları kaydedip 5 / 10 / 20 işlem günü sonra gerçekleşenle karşılaştırmak (test sonucundan sonra)
+- [x] 08: önceden kayıtlı Strat testi çalıştırıldı (17/11/2026) — günlük ve haftalık doğrulanmadı; Strat yalnızca bar okuma dili
+- [ ] Strat isabet kaydı: 08'in 6. bölümündeki güncel kurulumları kaydedip 5 / 10 / 20 işlem günü sonra gerçekleşenle karşılaştırmak. Haftalık FTFC ya da inside bar kurulumları yeniden sınanacaksa bu kayıtla ve önce yeni önceden kayıt yazılarak (karar bekliyor)
 - [ ] Strat: broadening formation ve magnitude seviyeleri (bekletiliyor)
 - [ ] (Parkur kapalı; yeniden açılırsa) 07c skor 4'ü ayrı kural olarak, yeni önceden kayıtla ve 21/08/2026 sonrası veriyle sınamak
 - [ ] Gün içi parkur sonuçlarını (07–07e) bir X dizisine dönüştürmek
