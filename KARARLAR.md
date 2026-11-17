@@ -173,6 +173,7 @@ Karar vermeyen ama okunması gereken notlar:
 - 5 dk ORB (−0,021 R) çıtasının belirgin altında.
 
 ## Teknik analiz sistemi: The Strat (08)
+- **KONU KAPATILDI (17/11/2026):** 08 testi doğrulanmadı; Strat bırakıldı. İsabet kaydı, haftalık FTFC'nin yeniden sınanması ve broadening/magnitude genişlemesi yapılmayacak. Not defteri (08) ve sonuçlar referans olarak kalır. Yeniden açılırsa yalnızca yeni ve önceden kayıtlı bir hipotezle, 13/11/2026 sonrası veriyle.
 - **SONUÇ (17/11/2026): 08 testi günlükte ve haftalıkta doğrulanmadı.** Önceden kayıttaki karar gereği Strat **tek başına sinyal olarak kullanılmaz**; yalnızca bar okuma dili olarak (bar tipi, kurulum, FTFC durumu bilgi amaçlı) kullanılır. Ayrıntılar aşağıda, 08 sonuç bölümünde.
 - **Karar (17/11/2026):** Teknik analizde tek bir sistem benimsendi: **The Strat**. Seçilme nedeni tamamen kurala dayalı olması: bar tipleri ve kurulumlar yoruma yer bırakmadan kodla tanımlanıyor, analiz her seferinde aynı çıkıyor ve ölçülebiliyor. Price action (Brooks, Volman) yoruma çok dayandığı için seçilmedi.
 - **Sade başlangıç:** broadening formation ve magnitude seviyeleri şimdilik **bekletiliyor**. Yalnızca bar kombinasyonları ve FTFC.
@@ -226,9 +227,7 @@ Karar vermeyen ama okunması gereken notlar:
 - [x] 07c: önceden kayıtlı test çalıştırıldı (16/11/2026) — 5 dk doğrulandı (zayıf), 15 dk doğrulanmadı
 - [x] 07e: seviye + EMA geri çekilme stratejisi test edildi (16/11/2026) — iki kol da doğrulanmadı, her yıl negatif
 - [x] 07d: seviye ve EMA teyitleri test edildi (16/11/2026) — sekiz testin hiçbiri doğrulanmadı
-- [x] 08: önceden kayıtlı Strat testi çalıştırıldı (17/11/2026) — günlük ve haftalık doğrulanmadı; Strat yalnızca bar okuma dili
-- [ ] Strat isabet kaydı: 08'in 6. bölümündeki güncel kurulumları kaydedip 5 / 10 / 20 işlem günü sonra gerçekleşenle karşılaştırmak. Haftalık FTFC ya da inside bar kurulumları yeniden sınanacaksa bu kayıtla ve önce yeni önceden kayıt yazılarak (karar bekliyor)
-- [ ] Strat: broadening formation ve magnitude seviyeleri (bekletiliyor)
+- [x] 08: önceden kayıtlı Strat testi çalıştırıldı (17/11/2026) — günlük ve haftalık doğrulanmadı; konu kapatıldı
 - [ ] (Parkur kapalı; yeniden açılırsa) 07c skor 4'ü ayrı kural olarak, yeni önceden kayıtla ve 21/08/2026 sonrası veriyle sınamak
 - [ ] Gün içi parkur sonuçlarını (07–07e) bir X dizisine dönüştürmek
 - [ ] 06'yı ilk kez gerçek veriyle, seans içinde çalıştırmak
